@@ -1,10 +1,16 @@
-version: "3.8"
+version: "3.9"
 
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+    container_name: backend
     ports:
       - "8000:8000"
+    restart: unless-stopped
 
   edge_client:
-    build: ./edge_client
+    build:
+      context: ./edge_client
+    container_name: edge_client
+    restart: unless-stopped

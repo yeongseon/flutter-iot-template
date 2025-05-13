@@ -1,4 +1,4 @@
-# flutter-iot-template\n\nA monorepo template for Flutter + Python backend + Edge client.
+# Flutter IoT Template
 
 A full-stack monorepo template for building Flutter + Python (FastAPI) + Edge IoT applications.
 
