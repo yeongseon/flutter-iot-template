@@ -4,9 +4,9 @@ A full-stack monorepo template for building Flutter + Python (FastAPI) + Edge Io
 
 This template is designed for rapid prototyping and educational use cases involving:
 
-- A mobile app (Flutter)
-- A backend API (FastAPI)
-- An edge device client (e.g. Jetson Nano, Raspberry Pi)
+* A mobile app (Flutter)
+* A backend API (FastAPI)
+* An edge device client (e.g. Jetson Nano, Raspberry Pi)
 
 ---
 
@@ -39,19 +39,27 @@ cd flutter-iot-template
 
 Depending on your OS:
 
-- **Linux/macOS**:
+* **Linux/macOS**:
 
 ```bash
 docker compose up --build
 ```
 
-- **Windows x86_64 (with Docker Desktop)**:
+* **macOS (Podman)**:
+
+```bash
+# Make sure Podman is installed and socket is linked with Docker CLI
+alias docker=podman
+podman compose up --build
+```
+
+* **Windows x86\_64 (with Docker Desktop)**:
 
 ```powershell
 docker compose up --build
 ```
 
-- **Windows ARM (e.g., Surface Pro X)**:
+* **Windows ARM (e.g., Surface Pro X)**:
 
 ```bash
 # Use WSL2 Ubuntu and run from inside it:
@@ -59,8 +67,8 @@ cd /mnt/c/Users/<username>/GitHub/flutter-iot-template
 docker-compose up --build
 ```
 
-- `backend`: FastAPI server at [http://localhost:8000](http://localhost:8000)
-- `edge_client`: Sends `POST /data` every 5 seconds with simulated sensor data
+* `backend`: FastAPI server at [http://localhost:8000](http://localhost:8000)
+* `edge_client`: Sends `POST /data` every 5 seconds with simulated sensor data
 
 ### 3. Run Flutter app
 
@@ -70,17 +78,17 @@ Follow instructions in [`flutter_app/README.md`](./flutter_app/README.md)
 
 ## Component Overview
 
-- [`flutter_app`](./flutter_app): Flutter UI that interacts with backend via HTTP
-- [`backend`](./backend): FastAPI app with `/hello` and `/data` endpoints
-- [`edge_client`](./edge_client): Python script simulating sensor data sent to backend
+* [`flutter_app`](./flutter_app): Flutter UI that interacts with backend via HTTP
+* [`backend`](./backend): FastAPI app with `/hello` and `/data` endpoints
+* [`edge_client`](./edge_client): Python script simulating sensor data sent to backend
 
 ---
 
 ## Requirements
 
-- Docker + Docker Compose
-- Python 3.9+ (optional, for local backend testing)
-- Flutter SDK 3.0+ (see below)
+* Docker + Docker Compose
+* Python 3.9+ (optional, for local backend testing)
+* Flutter SDK 3.0+ (see below)
 
 ---
 
@@ -100,9 +108,9 @@ set PATH=%PATH%;C:\path\to\flutter\bin
 
 Check these during install:
 
-- Android SDK
-- SDK Platform Tools
-- Android Emulator
+* Android SDK
+* SDK Platform Tools
+* Android Emulator
 
 ```bash
 flutter config --android-sdk "C:\Program Files\Android\Android Studio\Sdk"
@@ -110,7 +118,7 @@ flutter config --android-sdk "C:\Program Files\Android\Android Studio\Sdk"
 
 ### 3. Install [Visual Studio Community](https://visualstudio.microsoft.com/downloads/)
 
-- Select the **"Desktop development with C++"** workload
+* Select the **"Desktop development with C++"** workload
 
 ### 4. Install Chrome (Optional, for Flutter Web)
 
@@ -119,6 +127,51 @@ set CHROME_EXECUTABLE="C:\Program Files\Google\Chrome\Application\chrome.exe"
 ```
 
 ### 5. Validate Setup
+
+```bash
+flutter doctor
+```
+
+---
+
+## Flutter Setup on macOS
+
+If you're on macOS (Intel or Apple Silicon):
+
+### 1. Install Flutter SDK
+
+```bash
+# Example: download and extract to ~/flutter
+git clone https://github.com/flutter/flutter.git -b stable ~/flutter
+echo 'export PATH="$PATH:$HOME/flutter/bin"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+### 2. Install Xcode
+
+```bash
+# Install from App Store or developer.apple.com
+xcode-select --install
+sudo xcodebuild -license
+```
+
+### 3. Install Android Studio (Optional)
+
+* Android SDK
+* SDK Platform Tools
+* Android Emulator
+
+```bash
+flutter config --android-sdk /Users/<your-username>/Library/Android/sdk
+```
+
+### 4. Install Chrome (Optional, for Flutter Web)
+
+```bash
+brew install --cask google-chrome
+```
+
+### 5. Validate Flutter Environment
 
 ```bash
 flutter doctor
