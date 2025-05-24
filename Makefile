@@ -1,6 +1,7 @@
-# Makefile at root of flutter-iot-template
-
 FLUTTER=flutter/bin/flutter
+
+# Compose detection: prefer podman-compose, fallback to 'docker compose'
+COMPOSE_CMD=$(shell command -v podman-compose >/dev/null 2>&1 && echo podman-compose || echo "docker compose")
 
 # Flutter commands
 flutter-run:
@@ -15,18 +16,23 @@ flutter-clean:
 flutter-get:
 	cd flutter_app && ../$(FLUTTER) pub get
 
-# Docker Compose commands
+# Compose commands
 up:
-	docker-compose up --build
+	$(COMPOSE_CMD) up --build
 
 down:
-	docker-compose down
+	$(COMPOSE_CMD) down
 
 build:
-	docker-compose build
+	$(COMPOSE_CMD) build
 
 logs:
-	docker-compose logs -f edge_client backend
+	$(COMPOSE_CMD) logs -f edge_client backend
 
 restart:
-	make down && make up
+	$(MAKE) down
+	$(MAKE) up
+
+# Optional: Start podman machine
+podman-start:
+	podman machine start || true
