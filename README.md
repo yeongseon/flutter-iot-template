@@ -3,43 +3,64 @@
 A full-stack monorepo template for building Flutter + Python (FastAPI) + Edge IoT applications.
 
 This template is designed for rapid prototyping and educational use cases involving:
+
 - A mobile app (Flutter)
 - A backend API (FastAPI)
 - An edge device client (e.g. Jetson Nano, Raspberry Pi)
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 flutter-iot-template/
-├── flutter_app/     # Flutter mobile app
-├── backend/         # FastAPI backend server
-├── edge_client/     # Python edge client (Jetson/Raspberry Pi)
+├── flutter/          # Locally installed Flutter SDK (excluded from git)
+├── flutter_app/      # Flutter mobile app source
+├── backend/          # FastAPI backend server
+├── edge_client/      # Python edge client (Jetson Nano / Raspberry Pi)
 ├── docker-compose.yml
 ├── Makefile
-└── .github/workflows/ (CI/CD setup)
+├── README.md
+└── .github/workflows/  # Optional CI/CD setup
 ```
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
-### 1. Clone this repo
+### 1. Clone this repository
 
 ```bash
 git clone https://github.com/yeongseon/flutter-iot-template.git
 cd flutter-iot-template
 ```
 
-### 2. Start backend and edge client (Docker)
+### 2. Start backend and edge client with Docker
+
+Depending on your OS:
+
+- **Linux/macOS**:
 
 ```bash
 docker compose up --build
 ```
 
-- `backend`: accessible at http://localhost:8000/hello
-- `edge_client`: prints "Hello from Edge Client!" every 5 seconds
+- **Windows x86_64 (with Docker Desktop)**:
+
+```powershell
+docker compose up --build
+```
+
+- **Windows ARM (e.g., Surface Pro X)**:
+
+```bash
+# Use WSL2 Ubuntu and run from inside it:
+cd /mnt/c/Users/<username>/GitHub/flutter-iot-template
+docker-compose up --build
+```
+
+- `backend`: FastAPI server at [http://localhost:8000](http://localhost:8000)
+- `edge_client`: Sends `POST /data` every 5 seconds with simulated sensor data
 
 ### 3. Run Flutter app
 
@@ -47,22 +68,64 @@ Follow instructions in [`flutter_app/README.md`](./flutter_app/README.md)
 
 ---
 
-## 🔗 Component Overviews
+## Component Overview
 
-- [`flutter_app`](./flutter_app): Flutter UI with FastAPI integration via `http` package
-- [`backend`](./backend): FastAPI backend with a `/hello` endpoint
-- [`edge_client`](./edge_client): Python script that simulates edge behavior (e.g. sensor logging)
+- [`flutter_app`](./flutter_app): Flutter UI that interacts with backend via HTTP
+- [`backend`](./backend): FastAPI app with `/hello` and `/data` endpoints
+- [`edge_client`](./edge_client): Python script simulating sensor data sent to backend
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 - Docker + Docker Compose
-- Flutter SDK 3.0+
-- Python 3.9+ (for local backend testing)
+- Python 3.9+ (optional, for local backend testing)
+- Flutter SDK 3.0+ (see below)
 
 ---
 
-## 📄 License
+## Flutter Setup on Windows
+
+If you are using Windows (especially ARM-based), follow these steps:
+
+### 1. Install [Flutter SDK](https://docs.flutter.dev/get-started/install)
+
+Extract to `flutter/` and add to `PATH`:
+
+```powershell
+set PATH=%PATH%;C:\path\to\flutter\bin
+```
+
+### 2. Install [Android Studio](https://developer.android.com/studio)
+
+Check these during install:
+
+- Android SDK
+- SDK Platform Tools
+- Android Emulator
+
+```bash
+flutter config --android-sdk "C:\Program Files\Android\Android Studio\Sdk"
+```
+
+### 3. Install [Visual Studio Community](https://visualstudio.microsoft.com/downloads/)
+
+- Select the **"Desktop development with C++"** workload
+
+### 4. Install Chrome (Optional, for Flutter Web)
+
+```powershell
+set CHROME_EXECUTABLE="C:\Program Files\Google\Chrome\Application\chrome.exe"
+```
+
+### 5. Validate Setup
+
+```bash
+flutter doctor
+```
+
+---
+
+## License
 
 MIT License
