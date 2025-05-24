@@ -161,6 +161,8 @@ source ~/.zshrc
 # Install from App Store or developer.apple.com
 xcode-select --install
 sudo xcodebuild -license
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+sudo xcodebuild -runFirstLaunch
 ```
 
 ### 3. Install Android Studio (Optional)
@@ -168,6 +170,8 @@ sudo xcodebuild -license
 * Android SDK
 * SDK Platform Tools
 * Android Emulator
+
+After installation, if the Android SDK cannot be located automatically, configure it manually:
 
 ```bash
 flutter config --android-sdk /Users/<your-username>/Library/Android/sdk
@@ -182,7 +186,16 @@ brew install --cask google-chrome
 ### 5. Validate Flutter Environment
 
 ```bash
-flutter doctor
+flutter doctor -v
+```
+
+If you see issues related to Android SDK, Xcode, or CocoaPods:
+
+* Install missing tools via the official links provided in the output
+* For CocoaPods (required for iOS/macOS):
+
+```bash
+sudo gem install cocoapods
 ```
 
 ---
