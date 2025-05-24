@@ -140,6 +140,14 @@ If you're on macOS (Intel or Apple Silicon):
 
 ### 1. Install Flutter SDK
 
+You can install Flutter using [Homebrew](https://brew.sh):
+
+```bash
+brew install flutter
+```
+
+Alternatively, you can manually install it:
+
 ```bash
 # Example: download and extract to ~/flutter
 git clone https://github.com/flutter/flutter.git -b stable ~/flutter
