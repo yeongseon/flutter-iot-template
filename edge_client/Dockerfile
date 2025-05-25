@@ -1,8 +1,10 @@
 FROM python:3.9-slim
 
-WORKDIR /client
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+WORKDIR /app
 
-COPY . .
-CMD ["python", "hello_client.py"]
+COPY pyproject.toml ./
+COPY src/ ./src
+
+RUN pip install --upgrade pip && pip install .
+
+CMD ["python", "src/main.py"]
