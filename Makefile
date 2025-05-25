@@ -1,7 +1,11 @@
 FLUTTER=flutter/bin/flutter
 
-# Compose detection: prefer podman-compose, fallback to 'docker compose'
-COMPOSE_CMD=$(shell command -v podman-compose >/dev/null 2>&1 && echo podman-compose || echo "docker compose")
+# Prefer podman-compose if available; fallback to docker compose
+ifeq (, $(shell command -v podman-compose 2>/dev/null))
+	COMPOSE_CMD=docker compose
+else
+	COMPOSE_CMD=podman-compose
+endif
 
 # Flutter commands
 flutter-run:
@@ -16,7 +20,7 @@ flutter-clean:
 flutter-get:
 	cd flutter_app && ../$(FLUTTER) pub get
 
-# Compose commands
+# Docker/Podman Compose commands
 up:
 	$(COMPOSE_CMD) up --build
 
@@ -33,6 +37,6 @@ restart:
 	$(MAKE) down
 	$(MAKE) up
 
-# Optional: Start podman machine
+# Optional: For macOS Podman Desktop
 podman-start:
 	podman machine start || true
