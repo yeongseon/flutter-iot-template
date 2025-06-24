@@ -2,18 +2,21 @@
 name = "backend"
 version = "0.1.0"
 description = "FastAPI backend for IoT system"
+authors = [{name="Yeongseon Choe", email="yeongseon.choe@gmail.com"}]
 requires-python = ">=3.9"
 dependencies = [
     "fastapi",
     "uvicorn[standard]",
-    "requests"
+    "requests",
+    "sqlalchemy",
+    "pydantic"
 ]
 
 [project.optional-dependencies]
 dev = ["pytest", "httpx", "ruff", "black"]
 
 [tool.setuptools]
-packages = ["src"]
+packages = ["app"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
