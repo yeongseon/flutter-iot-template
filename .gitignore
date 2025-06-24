@@ -25,3 +25,4 @@ flutter_*.tar.xz
 
 # macOS
 .DS_Store
+backend/app.db
